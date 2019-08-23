@@ -1,2 +1,2 @@
-# Project-ModelingFinal
-Placeholder for project from IDS 702 - Modeling 
+# Project-Modeling
+Placeholder for IDS 702 Final Project as Project
