@@ -1,0 +1,8 @@
+"","     Date","   Retweets","  Favorites","    Tweets","Online.Response","   Approval"," Disapproval","Virality","Sentiment.Score","        Emotion"
+"","Min.   :2017-02-01  ","Min.   :  7089  ","Min.   :  33563  ","Min.   : 0.000  ","Min.   :     0  ","Min.   :36.40  ","Min.   :44.69  ","NA  :542  ","Min.   :-4.55000  ","trust       :365  "
+"","1st Qu.:2017-07-14  ","1st Qu.: 84293  ","1st Qu.: 380460  ","1st Qu.: 4.000  ","1st Qu.:119726  ","1st Qu.:38.67  ","1st Qu.:52.56  ","90  : 33  ","1st Qu.: 0.02396  ","anticipation: 91  "
+"","Median :2017-12-24  ","Median :131677  ","Median : 579038  ","Median : 6.000  ","Median :149554  ","Median :40.46  ","Median :53.66  ","95  : 26  ","Median : 0.53568  ","anger       : 64  "
+"","Mean   :2017-12-24  ","Mean   :147011  ","Mean   : 618442  ","Mean   : 6.813  ","Mean   :155035  ","Mean   :40.32  ","Mean   :53.84  ","99  :  7  ","Mean   : 0.53445  ","fear        : 41  "
+"","3rd Qu.:2018-06-05  ","3rd Qu.:203822  ","3rd Qu.: 846484  ","3rd Qu.:10.000  ","3rd Qu.:187042  ","3rd Qu.:41.91  ","3rd Qu.:55.52  ","NA's: 45  ","3rd Qu.: 1.01104  ","joy         : 20  "
+"","Max.   :2018-11-15  ","Max.   :520434  ","Max.   :1998621  ","Max.   :24.000  ","Max.   :974628  ","Max.   :44.81  ","Max.   :57.50  ",NA,"Max.   : 6.40000  ","(Other)     : 27  "
+"",NA,"NA's   :45  ","NA's   :45  ",NA,NA,NA,NA,NA,"NA's   :45  ","NA's        : 45  "

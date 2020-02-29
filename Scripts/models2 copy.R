@@ -1,0 +1,1594 @@
+rm(list=ls(all=TRUE))
+
+approval <- read.csv("/Users/kathryncoulter/Desktop/Final Project/Data/approval_topline.csv")
+View(approval)
+3*365
+uniquedates <- unique(approval$modeldate)
+uniquedates
+approval.raw <- approval
+approval %>% slice(61:)
+approval %>% slice(61:2040)
+library(dplyr)
+approval %>% slice(61:)
+approval %>% slice(61:2040)
+approval <- approval %>% slice(61:2040)
+View(approval.raw)
+approval <- approval.raw %>% slice(57:2040)
+dim(approval)
+661*3
+approval <- approval.raw %>% slice(2:1983)
+dim(approval)
+approval <- approval.raw %>% slice(58:2040)
+dim(approval)
+661*3
+43.95796 + 41.37979
+85.33775/2
+approval <- approval %>% filter(approval, subgroup =="All polls")
+dim(approval)
+uniquedays <- unique(approval$modeldate)
+dim(uniquedays)
+1983/3
+table(approval$modeldate)
+dates <- table(approval$modeldate)
+table
+dates
+summary(dates)
+summary(approval$modeldate)
+approval <- approval %>% filter(approval[1:1957])
+approval <- approval %>% filter(approval[,1:1957])
+approval <- approval %>% filter(approval[1:1957,])
+approval <- approval %>% slice(approval[1:1957])
+approval <- approval %>% slice(1:1957)
+approval <- approval %>% slice(1:1956)
+approval %>% group_by(modeldate) %>% summarize(count=n())
+approval %>% group_by(modeldate) %>% summarize(count=n())
+1956/3
+approval <- filter(approval, subgroup == "All polls")
+count(unique(approval$subgroup))
+table(approval$subgroup)
+approval$date <- approval$modeldate
+approval <- approval %>% select(date, approve_estimate, disapprove_estimate)
+ratings <- approval
+library(data.table)
+setnames(ratings, old=c("date", "approve_estimate", "disapprove_estimate"), new=c("date", "approve", "disapprove"))
+View(ratings)
+rm(approval)
+rm(approval.raw)
+rm(pollist)
+rm(dates)
+rm(uniquedates)
+rm(uniquedays)
+summary(ratings)
+tweets <- read.csv("/Users/kathryncoulter/Desktop/Final Project/Data/tweets.csv")
+
+tweets <- tweets %>% select(text, created_at, retweet_count, favorite_count)
+date <- tweets$created_at
+tweets <- tweets %>% select(text, created_at, retweet_count, favorite_count)
+tweets <- read.csv("Final Project/Data/tweets.csv")
+date <- tweets$created_at
+table(tweets)
+summary(tweets)
+read.table(text = as.character(tweets$created_at), sep = " ")$V1
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+tail(test)
+head(test)
+tweets$date <- test
+test <- as.Date(test)
+test <- as.character(test)
+test <- as.Date(test)
+test <- as.Date(test,"%m-%b-%Y")
+tweets$date <- test
+test
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+test <- as.Date(test,"%m-%b-%Y")
+test
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+test
+test <- as.Date(test,"%m-%b-%Y")
+test
+test <- as.Date(test,"%m-%b-%Y ")
+test
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+tweets$date <- test
+setnames(tweets, old=c("retweet_count", "favorite_count"), new=c("RT", "fav"))
+tweets
+setnames(tweets, old=c("retweet_count", "favorite_count"), new=c("RT", "fav"))
+summary(tweets)
+tweets <- tweets %>% select(text, RT, fav, date)
+tweetsinday <- table(tweets$date)
+test <- read.table(text = as.character(tweets$date), sep = "-")
+test
+year <- test$V3
+month <- test$V1
+day <- test$V2
+class(year)
+class(test)
+test
+tweets$date2 <- as.Date(with(test, paste(V3, V1, V2, sep="-")), "%Y-%m-%d")
+tweets <- subset(tweets, select = -4)
+names(tweets)[4] <- "date"
+test <- read.table(text = as.character(ratings$date), sep = "/")
+ratings$date <- as.Date(with(test, paste(V3, V1, V2, sep="-")), "%Y-%m-%d")
+rm(test)
+rm(date)
+rm(day)
+rm(month)
+rm(tweetsinaday)
+rm(tweetsinday)
+rm(year)
+dates <- data.frame(date = seq(as.POSIXct("2017-02-01"), as.POSIXct("2018-11-15"), by="day"))
+tail(dates)
+View(dates)
+dates <- data.frame(ratings$date)
+
+test643 <- table(dates)
+nov3 <- data.frame("date" = as.Date("2018-11-03"),count=20, maxresponse = 200200,  "approve" = 42.15896, "disapprove" = 52.83494)
+nov3
+ratings <- rbind(ratings, nov3)
+rm(nov3)
+rm(test2)
+test
+trump <- merge(ratings, test, by="date", all=TRUE)
+trump[is.na(trump)] <- 0
+summary(trump)
+RT <- tweets %>% group_by(date) %>% summarize(funs(sum()))
+View(RT)
+RT <- tweets %>% group_by(date) %>% summarize(funs(sum))
+View(ratings)
+View(RT)
+RT <- tweets %>% group_by(date) %>% summarise_each(funs(sum))
+stats <- summarize(group_by(tweets, date), RT_count=sum(RT), fav_count = sum(fav))
+sum(tweets$RT[1:9])
+View(stats)
+stats <- summarize(group_by(tweets, date), RT_sum=sum(RT), fav_sum = sum(fav), RT_avg=mean(RT), fav_avg=mean(fav))
+rm(RT)
+rm(test)
+rm(tweetcount)
+rm(dates)
+test <- merge(trump, stats, by="date", type="left", all=TRUE)
+trump <- test
+rm(test)
+rm(stats)
+rm(test643)
+View(trump)
+View(tweets)
+summary(tweets)
+RTs <- ggplot(tweets, aes(x = RT))
+RTs
+RTs <- ggplot(tweets, aes(x = RT)) + geom_density()
+RTs
+g <- ggplot(tweets, aes(x=RT)) + geom_density()
+g + geom_histogram()
+tweets$response <- tweets$RT + tweets$fav
+
+
+test <- tweets %>% group_by(date) %>% summarize(count=n(), maxresponse = max(response))
+dates$date <- dates$ratings.date
+
+combine <- merge(test, ratings, by="date", type="right", all=TRUE)
+
+
+combine$viral <- cut(combine$maxresponse, c(0,232291, 272299, 402289, 974628), labels=c("NA", "90", "95", "99"))
+
+tweets.df2 <- tweets$text
+
+tweets.df2 <- gsub("http.*","",tweets$text)
+tweets.df2 <- gsub(" .*t.co.* ","",tweets.df2)
+tweets.df2 <- gsub("https.* ","",tweets.df2)
+
+clean_tweet = gsub("&amp", " ", tweets.df2)
+clean_tweet = gsub("(RT|via)((?:\\b\\W*@\\w+)+)", " ", clean_tweet)
+clean_tweet = gsub("@\\w+", " ", clean_tweet)
+clean_tweet = gsub("[[:punct:]]", " ", clean_tweet)
+clean_tweet = gsub("[[:digit:]]", " ", clean_tweet)
+clean_tweet = gsub("http\\w* ", "", clean_tweet)
+clean_tweet = gsub("[ \t]{2,}", " ", clean_tweet)
+clean_tweet = gsub("^\\s+|\\s+$", " ", clean_tweet) 
+clean_tweet = gsub("https\\w* ", "", clean_tweet)
+
+head(clean_tweet)
+data("stop_words")
+tidy_trump_tweets<-tidy_trump_tweets %>%
+  anti_join(stop_words)
+
+
+
+
+tweets.df2 <- gsub("http.*","",tweets$text)
+tweets.df2 <- gsub(" .*t.co.* ","",tweets.df2)
+tweets.df2 <- gsub("https.* ","",tweets.df2)
+
+tweets.df2 <- gsub("#.* ","",tweets.df2)
+
+tweets.df2 <- gsub("@.* ","",tweets.df2)
+
+
+
+
+
+process_sentiment <- function (rawtext, mymethod) {
+  chunkedtext <- data_frame(x = rawtext) %>% 
+    group_by(linenumber = ceiling(row_number() / 10)) %>% 
+    summarize(text = str_c(x, collapse = " "))
+  mySentiment <- data.frame(cbind(linenumber = chunkedtext$linenumber, 
+                                  sentiment = get_sentiment(chunkedtext$text, method = mymethod)))
+}
+
+
+
+quantile(tweets$response, c(.8, .85, .9, .95, .97, .99))
+quantile(tweets$response, c(.8, .85, .9, .95, .98, .99))
+sum(tweets$response >= 134822)
+sum(tweets$response >= 146407)
+sum(tweets$response >= 160636)
+sum(tweets$response >= 186903)
+sum(tweets$response >= 205708)
+tweets <- tweets %>% mutate(viral80 = ifelse(response == 134822), TRUE)
+tweets$viral80 <- NA
+tweets$viral90 <- NA
+tweets$viral97 <- NA
+tweets <- mutate(tweets, viral80 = ifelse(response > 134821), 1, 0)
+tweets <- tweets %>% mutate(viral80 = ifelse(response > 134821, '1', '0'))
+tweets <- tweets %>% mutate(viral90 = ifelse(response > 160635, '1', '0'))
+tweets <- tweets %>% mutate(viral97 = ifelse(response > 205708, '1', '0'))
+tweets %>% group_by(date) %>% summarise(viral80)
+library(tidytext)
+library(rtweet)
+library(proustr)
+install.packages("proustr")
+library(proustr)
+install.packages(syuzhet)
+tweets$sentiment <- get_sentiments(tweets$text)
+tweets2 <- gsub("http.*", "", tweets$text)
+tweets$text2 <- gsub("http.*", "", tweets$text)
+tweets$text2 <- gsub("https.*", "", tweets$text)
+tweets$text2 <- gsub("#.*", "", tweets$text)
+tweets$text2 <- gsub("@.*", "", tweets$text)
+sa <- as.vector(tweets$text2)
+sa.df <- get_sentiments(sa)
+library(twitteR)
+#  Install Requried Packages
+installed.packages("SnowballC")
+installed.packages("tm")
+installed.packages("twitteR")
+installed.packages("syuzhet")
+install.packages("syuzhet")
+library("SnowballC")
+library("tm")
+library("twitteR")
+library("syuzhet")
+tweets$text2 <- NA
+sentiment <- get_nrc_sentiment(tweets$text)
+sentiment <- get_nrc_sentiment(as.vector(tweets$text))
+tweets$text2 <- plain_tweets(tweets$text)
+tweets$text2.1 <- plain_tweets(tweets$text, tokenize=TRUE)
+sa <- plain_tweets(tweets$text2, tokenize=TRUE)
+sa
+sa <- plain_tweets(tweets$text2, tokenize=TRUE)
+sa <- table(unlist(stopwords))
+sa <- plain_tweets(tweets$text2)
+install.packages("text2vec")
+library("text2vec")
+sa
+sa <- word_tokenizer(sa)
+sa
+sa <- table(unlist(stopwords()))
+sa <- table(unlist(stopwords)
+)
+sa <- syuzhet::get_nrc_sentiment(sa)
+sa <- tolower(sa)
+tweets$text2 <- plain_tweets(tweets$text)
+clean <- as.data.frame(tweets$text2)
+nrow(clean)
+nrc <- get_sentiments(clean)
+nrc <- get_sentiments("nrc")
+View(clean)
+clean$ID <- seq[1:4449]
+clean$ID <- seq(1:4449)
+clean <- clean %>% unnest_tokens(word, tweets$text2)
+clean <- tweets$text2
+clean.table <- tibble(tweetID = seq_along(clean), text=clean)
+View(clean.table)
+clean.table <- clean.table %>% unnest_tokens(word, text)
+clean.table <- clean.table %>% anti_join(stop_words)
+clean.table %>% count(word, sort = TRUE)
+clean.table <- clean.table %>% anti_join("t.co")
+stop_words
+stop_words <- merge(stop_words, c("t.co", "SMART"))
+stop_words
+stop_words <- mutate(stop_words, -y)
+class(stop_words)
+stop_words <- stop_words[, -3]
+View(stop_words)
+stop_words <- stop_words[, -4]
+View(stop_words)
+stop_words <- stop_words[, -3]
+stop_words <- rbind(stop_words, c("t.co", "SMART"))
+dim(stop_words)
+stop_words <- rbind(stop_words, c("t.co", "onix"))
+stop_words <- rbind(stop_words, c("t.co", "snowball"))
+clean.table <- clean.table %>% anti_join(stop_words)
+clean.table %>% count(word, sort = TRUE)
+clean.table <- clean.table %>% right_join(get_sentiments("nrc")) %>% filter(!is.na(sentiment)) %>% count(sentiment, sort=TRUE)
+clean.table
+sentimentcount <- clean.table
+clean.table <- clean.table %>% anti_join(stop_words)
+tweets2 <- tweets$text
+word.df <- as.vector(tweets2)
+emotion.df <- get_nrc_sentiment(word.df)
+emotion.df2 <- cbind(emotion.df2, emotion.df)
+emotion.df2 <- cbind(tweets2, emotion.df)
+head(emotion.df2)
+View(emotion.df2)
+tweets <- merge(tweets, emotion.df2, by="tweets2")
+tweets <- tweets %>% dplyr::rename(text2=tweets2)
+tweets$tweets2 <- tweets$text2
+tweets <- merge(tweets, emotion.df2, by="tweets2")
+sa.value
+sa.value <- get_sentiment(word.df)
+sa.value
+sa.value <- data.frame(sa.value)
+tweets <- merge(tweets, sa.value)
+
+
+
+
+
+
+
+
+
+
+
+
+tweets <- merge(tweets, sa.value)
+View(tweets)
+tweets <- tweets %>% select(text, RT, fav, date, response, viral80, viral90, viral97, anger, anticipation, disgust, fear, joy, sadness, surprise, trust, negative, positive)
+sa.valuee
+sa.value
+cbind(tweets, sa.value)
+rm(list=ls(all=TRUE))
+approval <- read.csv("Final Project/Data/approval_topline.csv")
+pollist <- read.csv("Final Project/Data/approval_polllist.csv")
+View(approval)
+3*365
+View(pollist)
+uniquedates <- unique(approval$modeldate)
+uniquedates
+approval.raw <- approval
+approval %>% slice(61:)
+approval %>% slice(61:2040)
+library(dplyr)
+approval %>% slice(61:)
+approval %>% slice(61:2040)
+approval <- approval %>% slice(61:2040)
+View(approval.raw)
+approval <- approval.raw %>% slice(57:2040)
+dim(approval)
+661*3
+approval <- approval.raw %>% slice(2:1983)
+dim(approval)
+approval <- approval.raw %>% slice(58:2040)
+dim(approval)
+661*3
+43.95796 + 41.37979
+85.33775/2
+approval <- approval %>% filter(approval, subgroup =="All polls")
+dim(approval)
+uniquedays <- unique(approval$modeldate)
+dim(uniquedays)
+1983/3
+table(approval$modeldate)
+dates <- table(approval$modeldate)
+table
+dates
+summary(dates)
+summary(approval$modeldate)
+approval <- approval %>% filter(approval[1:1957])
+approval <- approval %>% filter(approval[,1:1957])
+approval <- approval %>% filter(approval[1:1957,])
+approval <- approval %>% slice(approval[1:1957])
+approval <- approval %>% slice(1:1957)
+approval <- approval %>% slice(1:1956)
+approval %>% group_by(modeldate) %>% summarize(count=n())
+approval %>% group_by(modeldate) %>% summarize(count=n())
+1956/3
+approval <- filter(approval, subgroup == "All polls")
+count(unique(approval$subgroup))
+table(approval$subgroup)
+approval$date <- approval$modeldate
+approval <- approval %>% select(date, approve_estimate, disapprove_estimate)
+ratings <- approval
+library(data.table)
+setnames(ratings, old=c("date", "approve_estimate", "disapprove_estimate"), new=c("date", "approve", "disapprove"))
+View(ratings)
+rm(approval)
+rm(approval.raw)
+rm(pollist)
+rm(dates)
+rm(uniquedates)
+rm(uniquedays)
+summary(ratings)
+tweets <- read.csv("Final Project/Data/tweets.csv")
+tweets <- read.csv("/Users/kathryncoulter/Desktop/Final Project/Data/tweets.csv")
+View(tweets)
+tweets <- select(text, created_at, retweet_count, favorite_count)
+tweets <- tweets %>% select(text, created_at, retweet_count, favorite_count)
+date <- tweets$date
+date <- tweets$created_at
+date <- str_split(date, " ", simplify = TRUE)
+date <- date[,c(3,2,6,4,1,5)]
+date <- date[, -c(5:6)]
+date <- as.data.frame(date)
+date <- unite(date, "day", sep=" ", c(1:3))
+date$day <- format(as.Date(date$day, "%d %b %Y"), "%Y-%m-%d")
+date <- unite(date, "date", sep=" ", c(1:2))
+library(tidyverse)
+date <- str_split(date, " ", simplify = TRUE)
+date <- date[,c(3,2,6,4,1,5)]
+date <- date[, -c(5:6)]
+date <- as.data.frame(date)
+date <- unite(date, "day", sep=" ", c(1:3))
+date$day <- format(as.Date(date$day, "%d %b %Y"), "%Y-%m-%d")
+date <- unite(date, "date", sep=" ", c(1:2))
+View(date)
+tweets <- read.csv("Final Project/Data/tweets.csv")
+tweets <- tweets %>% select(text, created_at, retweet_count, favorite_count)
+date <- tweets$created_at
+tweets <- read.csv("/Users/kathryncoulter/Desktop/Final Project/Data/tweets.csv")
+tweets <- tweets %>% select(text, created_at, retweet_count, favorite_count)
+date <- tweets$created_at
+tweets <- tweets %>% select(text, created_at, retweet_count, favorite_count)
+tweets <- read.csv("Final Project/Data/tweets.csv")
+date <- tweets$created_at
+table(tweets)
+summary(tweets)
+read.table(text = as.character(tweets$created_at), sep = " ")$V1
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+tail(test)
+head(test)
+tweets$date <- test
+test <- as.Date(test)
+test <- as.character(test)
+test <- as.Date(test)
+test <- as.Date(test,"%m-%b-%Y")
+tweets$date <- test
+test
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+test <- as.Date(test,"%m-%b-%Y")
+test
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+test
+test <- as.Date(test,"%m-%b-%Y")
+test
+test <- as.Date(test,"%m-%b-%Y ")
+test
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+tweets$date <- test
+setnames(tweets, old=c("retweet_count", "favorite_count"), new=c("RT", "fav"))
+tweets
+setnames(tweets, old=c("retweet_count", "favorite_count"), new=c("RT", "fav"))
+summary(tweets)
+tweets <- tweets %>% select(text, RT, fav, date)
+tweetsinday <- table(tweets$date)
+test <- read.table(text = as.character(tweets$date), sep = "-")
+test
+year <- test$V3
+month <- test$V1
+day <- test$V2
+tweets$date2 <- as.Date(with(test, paste(V3, V1, V2, sep="-")), "%Y-%m-%d")
+tweets <- subset(tweets, select = -4)
+names(tweets)[4] <- "date"
+test <- read.table(text = as.character(ratings$date), sep = "/")
+ratings$date <- as.Date(with(test, paste(V3, V1, V2, sep="-")), "%Y-%m-%d")
+rm(test)
+rm(date)
+rm(day)
+rm(month)
+rm(tweetsinaday)
+rm(tweetsinday)
+rm(year)
+dates <- dataframe(date = seq(as.POSIXct("2017-02-01"), as.POSIXct("2018-11-15"), by="day"))
+dates <- data.frame(date = seq(as.POSIXct("2017-02-01"), as.POSIXct("2018-11-15"), by="day"))
+save.image("~/Documents/FINAL/env.RData")
+savehistory("~/Documents/FINAL/history.Rhistory")
+dates <- data.frame(ratings$date)
+tweets %>% group_by(date) %>% summarize(count=n())
+tweetcount <- tweets %>% group_by(date) %>% summarize(count=n())
+dates$date <- dates$ratings.date
+dates <- subset(dates, select=-1)
+View(ratings)
+View(tweets)
+tweetcount <- tweets %>% group_by(date) %>% slice(which.max(RT))
+View(tweetcount)
+tweetcount <- tweets %>% group_by(date) %>% slice(which.max(fav))
+dates$date <- dates$ratings.date
+test <- merge(tweetcount, dates, by="date", type="right", all=TRUE)
+tweetcount <- tweets %>% group_by(date) %>% select(text, date) %>% summarize(count=n())
+View(tweetcount)
+tweetcount <- tweets %>% group_by(date) %>% select(RT) %>% slice(which.max(RT))
+tweetcount <- tweets %>% group_by(date) %>% select(text, date) %>% summarize(count=n())
+RTmax <- tweets %>% group_by(date) %>% slice(which.max(RT))
+View(RTmax)
+RTmax <- tweets %>% group_by(date) %>% slice(which.max(RT), which.max(fav))
+RTmax <- tweets %>% group_by(date) %>% filter(value==max(value))
+RTmax <- tweets %>% group_by(date) %>% filter(RT==max(RT), fav==max(fav))
+tweetcount <- tweets %>% group_by(date) %>% slice(which.max(fav)) %>% summarize(count=n())
+tweetcount <- tweets %>% group_by(date) %>% sfilter(RT==max(RT), fav==max(fav)) %>% summarize(count=n())
+tweetcount <- tweets %>% group_by(date) %>% filter(RT==max(RT), fav==max(fav)) %>% summarize(count=n())
+tweets %>% group_by(date) %>% summarize(count=n())
+tweetcount <- tweets %>% group_by(date) %>% slice(which.max(RT))
+tweetcount <- tweets %>% group_by(date) %>% slice(which.max(fav)) %>% summarize(count=n())
+sample <- tweets %>% group_by(date) %>% summarize(count=n())
+tweets$response <- sum(tweets$RT, tweets$fav)
+tweets$response <- tweets$RT + tweets$fav
+test <- tweets %>% group_by(date) %>% summarize(count=n(), maxresponse = max(response))
+View(test)
+dates <- data.frame(ratings$date)
+dates$date <- dates$ratings.date
+dates <- subset(dates, select=-1)
+combine <- merge(test, dates, by="date", type="right", all=TRUE)
+View(test)
+View(dates)
+combine <- merge(test, ratings, by="date", type="right", all=TRUE)
+View(combine)
+test643 <- table(dates)
+nov3 <- data.frame("date" = as.Date(2018-11-03), count=20, maxresponse = 200200, "approve" = 42.15896, "disapprove" = 52.83494)
+nov3 <- data.frame("date" = as.Date("2018-11-03"),count=20, maxresponse = 200200,  "approve" = 42.15896, "disapprove" = 52.83494)
+nov3 <- data.frame("date" = as.Date("2018-11-03"),count=20, maxresponse = 200200,  "approve" = 42.15896, "disapprove" = 52.83494)
+nov3
+combine$approve[641] = 42.15896
+combine$dispprove[641] = 52.83494
+combine$dispprove[641] = 52.83494
+combine$disapprove[641] = 52.83494
+rm(nov3)
+rm(dates)
+rm(ratings)
+rm(RTmax)
+rm(sample)
+rm(test)
+rm(tweetcount)
+daily <- combine
+rm(combine)
+save.image("~/Documents/FINAL/env.RData")
+summary(daily)
+daily[is.na(daily)] <- 0
+save.image("~/Documents/FINAL/env.RData")
+summary(daily)
+stats <- summarize(group_by(tweets, date), RT_sum=sum(RT), fav_sum = sum(fav), RT_avg=mean(RT), fav_avg=mean(fav))
+View(stats)
+combine <- merge(stats, daily, by="date", type="right", all=TRUE)
+View(combine)
+rm(daily)
+rm(stats)
+save.image("~/Documents/FINAL/env.RData")
+summary(combine)
+quantile(combine$maxresponse, c(.8, .85, .9, .95, .97, .99))
+sum(combine$maxresponse >= 232290)
+sum(combine$maxresponse >= 272299)
+sum(combine$maxresponse >= 402288.6)
+test <- combine %>% mutate(viral = ifelse(maxresponse %in% in 0:232289, "-",
+                                          ifelse(maxresponse %in% 232290:272298, "90per",
+                                                 ifelse(maxresponse %in% 272299:404488, "95per", "99th"))))
+test <- combine
+View(test)
+test$viral <- NA
+test <- mutate(test, viral = ifelse(maxresponse %in% 232290:272298, "90per",
+                                    ifelse(maxresponse %in% 272299:404488, "95per",
+                                           ifelse(maxresponse %in% 404489:, "99th"
+                                                  "-"))))
+test$viral <- cut(test$maxresponse, c(0,232291, 272299, 402289, 974628))
+summary(test)
+test$viral <- cut(test$maxresponse, c(0,232291, 272299, 402289, 974628), labels=c("NA", "90", "95", "99"))
+tweets$viral <- cut(tweets$maxresponse, c(0,232291, 272299, 402289, 974628), labels=c("NA", "90", "95", "99"))
+combine$viral <- cut(combine$maxresponse, c(0,232291, 272299, 402289, 974628), labels=c("NA", "90", "95", "99"))
+
+
+
+rm(stats)
+rm(test)
+
+
+
+save.image("~/Documents/FINAL/env.RData")
+
+
+tweets.df2 <- tweets$text
+tweets.df2 <- gsub("http.*","",tweets$text)
+tweets.df2 <- gsub(" .*t.co.* ","",tweets.df2)
+tweets.df2 <- gsub("https.* ","",tweets.df2)
+clean_tweet = gsub("&amp", " ", tweets.df2)
+clean_tweet = gsub("(RT|via)((?:\\b\\W*@\\w+)+)", " ", clean_tweet)
+clean_tweet = gsub("@\\w+", " ", clean_tweet)
+clean_tweet = gsub("[[:punct:]]", " ", clean_tweet)
+clean_tweet = gsub("[[:digit:]]", " ", clean_tweet)
+clean_tweet = gsub("http\\w* ", "", clean_tweet)
+clean_tweet = gsub("[ \t]{2,}", " ", clean_tweet)
+clean_tweet = gsub("^\\s+|\\s+$", " ", clean_tweet)
+clean_tweet = gsub("https\\w* ", "", clean_tweet)
+library("tidytext", lib.loc="/Library/Frameworks/R.framework/Versions/3.5/Resources/library")
+library("tm", lib.loc="/Library/Frameworks/R.framework/Versions/3.5/Resources/library")
+cleancorpus <- Corpus(VectorSource(as.vector(clean_tweet)))
+clean <- cleancorpus
+clean <- tm_map(clean, removeWords, stopwords("english"))
+View(clean)
+View(cleancorpus)
+tweets$clean <- clean_tweet
+tweet.tidy <- tweets %>% unnest_tokens(word, clean)
+View(tweet.tidy)
+sa <- tweet.tidy %>% inner_join(get_sentiments("AFINN"))
+sa <- tweet.tidy %>% inner_join(get_sentiments("afinn"))
+View(sa)
+sa2 <- tweet.tidy %>% inner_join(get_sentiments("bing"))
+sa3 <- tweet.tidy %>% inner_join(get_sentiments("nrc"))
+View(sa2)
+View(sa3)
+View(tweet.tidy)
+View(clean)
+View(tweet.tidy)
+View(tweets)
+View(tweet.tidy)
+tweet.tidy <- tweets %>% unnest_tokens(word, clean)
+word.df <- as.vector(tweets$clean)
+library("syuzhet", lib.loc="/Library/Frameworks/R.framework/Versions/3.5/Resources/library")
+sa.df <- get_nrc_sentiment(word.df)
+View(sa.df)
+sa.df2 <- cbind(tweets.df2, sa.df)
+View(sa.df2)
+sa.value <- get_sentiment(word.df)
+most.positive <- word.df[sent.value == max(sent.value)]
+most.positive <- word.df[sa.value == max(sent.value)]
+most.positive <- word.df[sa.value == max(sa.value)]
+sa.value
+sa <- data.frame(sa.value)
+test <- cbind(tweets, sa)
+View(test)
+View(tweet.tidy)
+View(tweets)
+View(test)
+View(sa.df2)
+emotion.df <- sa.df2[, -1]
+View(emotion.df)
+sa <- cbind(sa, emotion.df)
+View(sa)
+tweets <- cbind(tweets, sa)
+rm(clean)
+rm(cleancorpus)
+rm(emotion.df)
+rm(sa)
+rm(sa.df)
+rm(sa.df2)
+rm(sa2)
+rm(sa3)
+rm(test)
+rm(test, tweet.tidy, clean_tweet, tweets.df2, word.df)
+rm(most.positive, sa.value)
+daily <- combine
+rm(combine)
+View(daily)
+trump <- merge(tweets, daily, by="date", all=TRUE)
+View(trump)
+View(trump)
+days <- unique(tweets$date)
+days
+trump <- merge(tweets, daily, by="date")
+View(tweets)
+View(trump)
+summary(tweets)
+test <- daily
+sa.stat <- trump %>% summarize(group_by(date), sa.avg = mean(sa.value), sa.max = max(sa.value), sa.min=min(sa.value))
+test <- trump %>% group_by(date) %>% summarize(count=n(), samax = max(sa.value), samin = min(sa.value), saavg = mean(sa.value), anger = sum(anger), anticipation = sum(anticipation), disgust=sum(disgust), fear = sum(fear), joy = sum(joy), sadness=sum(sadness), surprise=sum(surprise), trust=sum(trust), negative=sum(negative), positive=sum(positive))
+View(test)
+test <- test %>% rename(sentiment = saavg)
+test <- test %>% select(-c[2:4])
+test <- test %>% select(-count)
+test <- test %>% select(-samax)
+test <- test %>% select(-samin)
+trump <- merge(daily, test, by='date', type='left', all=TRUE)
+save.image("~/Documents/FINAL/env.RData")
+getwd()
+setwd("/Users/kathryncoulter/Desktop")
+getwd()
+data.csv <- write.csv(trump)
+write.csv(trump, file="trump.csv")
+summary(trump)
+trump[is.na(trump)] <- 0
+summary(trump)
+write.csv(trump, file="trump.csv")
+
+trump <- merge(daily, test, by='date', type='left', all=TRUE)
+table(trump$count)
+
+vars <- trump %>% select(date, RT_sum, fav_sum, count, maxresponse, approve, disapprove, viral, sentiment)
+trump[6]
+colnames(trump[])
+emotion.df <- trump %>% select(12:19)
+colnames(emotion.df[])
+colnames(emotion.df)[max.col(emotion.df, ties.method="first")]
+emotion <- colnames(emotion.df)[max.col(emotion.df, ties.method="first")]
+emotion <- data.frame(emotion)
+test <- data.frame(trump, emotion)
+View(test)
+trump <- trump %>% select(date, RT_sum, fav_sum, count, maxresponse, approve, disapprove, viral, sentiment)
+test <- data.frame(trump, emotion)
+describe(trump)
+grid.table(trump)
+savehistory("~/Desktop/history.Rhistory")
+View(daily)
+View(trump)
+trump <- unique(trump)
+rm(trump)
+trump <- read.csv("trump.csv")
+View(emotion.df)
+View(emotion)
+View(vars)
+trump2 <- vars
+trump <- trump2
+trump$emotion <- NA
+trump$emotion <- emotion
+write.csv(trump, file="trump.csv")
+data <- summary(trump)
+colnames(trump) <- label(trump)
+View(test)
+View(trump)
+summary(trump)
+dim(trump)
+colnames(trump)
+names(trump)[5] <- "Online Response"
+names(trump)[9] <- "Sentiment Score"
+names(trump)[9] <- "Primary Emotion"
+names(trump)[9] <- "Sentiment Score"
+names(trump)[10] <- "Primary Emotion"
+unclass(trump)
+View(trump)
+View(trump)
+View(trump)
+trump$Date <- as.Date(trump$Date)
+class(trump$Date)
+attributes(trump)$label <- NULL
+attributes(trump$Date)$label <- NULL
+View(trump)
+attributes(trump$`Aggregate Favorite Count`)$label <- NULL
+attributes(trump$`Aggregate RT Count`)$label <- NULL
+View(trump)
+attributes(trump$`Tweet Count`)$label <- NULL
+attributes(trump$`Online Response`)$label <- NULL
+attributes(trump$`Approval Rating`)$label <- NULL
+attributes(trump$`Disapproval Rating`)$label <- NULL
+attributes(trump$`Virality`)$label <- NULL
+View(trump)
+View(trump)
+class(trump$Date) <- class(trump$Date)[-which(class(trump$Date)=="labelled")]
+class(trump$`Aggregate RT Count`) <- class(trump$Date)[-which(class(trump$Date)=="labelled")]
+class(trump$`Aggregate Favorite Count`) <- class(trump$Date)[-which(class(trump$Date)=="labelled")]
+class(trump$`Tweet Count`) <- class(trump$`Tweet Count`) [-which(class(trump$`Tweet Count`)=="labelled")]
+class(trump$`Approval Rating`) <- class(trump$`Approval Rating`) [-which(class(trump$`Approval Rating`)=="labelled")]
+class(trump$`Disapproval Rating`) <- class(trump$`Disapproval Rating`) [-which(class(trump$`Disapproval Rating`)=="labelled")]
+View(trump)
+View(emotion.df)
+emotion <- colnames(emotion.df)[max.col(emotion.df, ties.method="first")]
+class(emotion)
+levels(emotion)
+dim(emotion)
+emotion
+trump <- trump %>% select(-`Primary Emotion`)
+trump <- data.frame(trump, emotion)
+names(trump)[2] <- "Retweets"
+names(trump)[3] <- "Favorites"
+names(trump)[4] <- "Tweets"
+names(trump)[6] <- "Approval"
+names(trump)[7] <- "Disapproval"
+names(trump)[10] <- "Emotion"
+View(trump)
+
+summary(trump)
+
+
+
+
+
+
+#rm(list=ls(all=TRUE))
+
+approval <- read.csv("/Users/kathryncoulter/Desktop/Final Project/Data/approval_topline.csv")
+View(approval)
+3*365
+uniquedates <- unique(approval$modeldate)
+uniquedates
+approval.raw <- approval
+approval %>% slice(61:)
+approval %>% slice(61:2040)
+library(dplyr)
+approval %>% slice(61:)
+approval %>% slice(61:2040)
+approval <- approval %>% slice(61:2040)
+View(approval.raw)
+approval <- approval.raw %>% slice(57:2040)
+dim(approval)
+661*3
+approval <- approval.raw %>% slice(2:1983)
+dim(approval)
+approval <- approval.raw %>% slice(58:2040)
+dim(approval)
+661*3
+43.95796 + 41.37979
+85.33775/2
+approval <- approval %>% filter(approval, subgroup =="All polls")
+dim(approval)
+uniquedays <- unique(approval$modeldate)
+dim(uniquedays)
+1983/3
+table(approval$modeldate)
+dates <- table(approval$modeldate)
+table
+dates
+summary(dates)
+summary(approval$modeldate)
+approval <- approval %>% filter(approval[1:1957])
+approval <- approval %>% filter(approval[,1:1957])
+approval <- approval %>% filter(approval[1:1957,])
+approval <- approval %>% slice(approval[1:1957])
+approval <- approval %>% slice(1:1957)
+approval <- approval %>% slice(1:1956)
+approval %>% group_by(modeldate) %>% summarize(count=n())
+approval %>% group_by(modeldate) %>% summarize(count=n())
+1956/3
+approval <- filter(approval, subgroup == "All polls")
+count(unique(approval$subgroup))
+table(approval$subgroup)
+approval$date <- approval$modeldate
+approval <- approval %>% select(date, approve_estimate, disapprove_estimate)
+ratings <- approval
+library(data.table)
+setnames(ratings, old=c("date", "approve_estimate", "disapprove_estimate"), new=c("date", "approve", "disapprove"))
+View(ratings)
+#rm(approval)
+#rm(approval.raw)
+#rm(pollist)
+#rm(dates)
+#rm(uniquedates)
+#rm(uniquedays)
+summary(ratings)
+tweets <- read.csv("/Users/kathryncoulter/Desktop/Final Project/Data/tweets.csv")
+
+tweets <- tweets %>% select(text, created_at, retweet_count, favorite_count)
+date <- tweets$created_at
+tweets <- tweets %>% select(text, created_at, retweet_count, favorite_count)
+tweets <- read.csv("Final Project/Data/tweets.csv")
+date <- tweets$created_at
+table(tweets)
+summary(tweets)
+read.table(text = as.character(tweets$created_at), sep = " ")$V1
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+tweets <- read.csv("Final Project/Data/tweets.csv")
+View(tweets)
+tweets <- select(text, created_at, retweet_count, favorite_count)
+tweets <- tweets %>% select(text, created_at, retweet_count, favorite_count)
+date <- tweets$date
+date <- tweets$created_at
+date <- str_split(date, " ", simplify = TRUE)
+date <- date[,c(3,2,6,4,1,5)]
+date <- date[, -c(5:6)]
+date <- as.data.frame(date)
+date <- unite(date, "day", sep=" ", c(1:3))
+date$day <- fo#rmat(as.Date(date$day, "%d %b %Y"), "%Y-%m-%d")
+date <- unite(date, "date", sep=" ", c(1:2))
+library(tidyverse)
+date <- str_split(date, " ", simplify = TRUE)
+date <- date[,c(3,2,6,4,1,5)]
+date <- date[, -c(5:6)]
+date <- as.data.frame(date)
+date <- unite(date, "day", sep=" ", c(1:3))
+date$day <- fo#rmat(as.Date(date$day, "%d %b %Y"), "%Y-%m-%d")
+date <- unite(date, "date", sep=" ", c(1:2))
+View(date)
+tweets <- read.csv("Final Project/Data/tweets.csv")
+
+
+
+
+View(tweets)
+tweets <- tweets %>% select(text, created_at, retweet_count, favorite_count)
+date <- tweets$created_at
+tweets <- tweets %>% select(text, created_at, retweet_count, favorite_count)
+tweets <- read.csv("Final Project/Data/tweets.csv")
+date <- tweets$created_at
+table(tweets)
+summary(tweets)
+read.table(text = as.character(tweets$created_at), sep = " ")$V1
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+tail(test)
+head(test)
+tweets$date <- test
+approval <- read.csv("Final Project/Data/approval_topline.csv")
+getwd()
+approval <- read.csv("Final Project/Data/approval_topline.csv")
+getwd()
+approval <- read.csv("/Users/kathryncoulter/Desktop/Final Project/Data/approval_topline.csv")
+approval <- read.csv("/Users/kathryncoulter/Desktop/Final Project/Data/approval_topline.csv")
+View(approval)
+3*365
+uniquedates <- unique(approval$modeldate)
+uniquedates
+
+
+
+
+
+approval.raw <- approval
+approval %>% slice(61:)
+approval %>% slice(61:2040)
+library(dplyr)
+approval %>% slice(61:)
+approval %>% slice(61:2040)
+approval <- approval %>% slice(61:2040)
+View(approval.raw)
+approval <- approval.raw %>% slice(57:2040)
+dim(approval)
+661*3
+approval <- approval.raw %>% slice(2:1983)
+dim(approval)
+approval <- approval.raw %>% slice(58:2040)
+dim(approval)
+661*3
+43.95796 + 41.37979
+85.33775/2
+approval <- approval %>% filter(approval, subgroup =="All polls")
+dim(approval)
+uniquedays <- unique(approval$modeldate)
+dim(uniquedays)
+1983/3
+table(approval$modeldate)
+dates <- table(approval$modeldate)
+table
+dates
+summary(dates)
+summary(approval$modeldate)
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+tail(test)
+head(test)
+tweets$date <- test
+test <- as.Date(test)
+test <- as.character(test)
+test <- as.Date(test)
+test <- as.Date(test,"%m-%b-%Y")
+tweets$date <- test
+test
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+test <- as.Date(test,"%m-%b-%Y")
+test
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+test
+test <- as.Date(test,"%m-%b-%Y")
+test
+test <- as.Date(test,"%m-%b-%Y ")
+test
+test <- read.table(text = as.character(tweets$created_at), sep = " ")$V1
+tweets$date <- test
+setnames(tweets, old=c("retweet_count", "favorite_count"), new=c("RT", "fav"))
+tweets
+setnames(tweets, old=c("retweet_count", "favorite_count"), new=c("RT", "fav"))
+summary(tweets)
+tweets <- tweets %>% select(text, RT, fav, date)
+tweetsinday <- table(tweets$date)
+test <- read.table(text = as.character(tweets$date), sep = "-")
+test
+year <- test$V3
+month <- test$V1
+day <- test$V2
+class(year)
+class(test)
+test
+tweets$date2 <- as.Date(with(test, paste(V3, V1, V2, sep="-")), "%Y-%m-%d")
+tweets <- subset(tweets, select = -4)
+names(tweets)[4] <- "date"
+test <- read.table(text = as.character(ratings$date), sep = "/")
+ratings$date <- as.Date(with(test, paste(V3, V1, V2, sep="-")), "%Y-%m-%d")
+#rm(test)
+#rm(date)
+#rm(day)
+#rm(month)
+#rm(tweetsinaday)
+#rm(tweetsinday)
+#rm(year)
+dates <- data.frame(date = seq(as.POSIXct("2017-02-01"), as.POSIXct("2018-11-15"), by="day"))
+tail(dates)
+View(dates)
+dates <- data.frame(ratings$date)
+dates$date <- dates$ratings.date
+
+
+
+test643 <- table(dates)
+nov3 <- data.frame("date" = as.Date("2018-11-03"),count=20, maxresponse = 200200,  "approve" = 42.15896, "disapprove" = 52.83494)
+nov3
+ratings <- rbind(ratings, nov3)
+#rm(nov3)
+#rm(test2)
+test
+trump <- merge(ratings, test, by="date", all=TRUE)
+trump[is.na(trump)] <- 0
+summary(trump)
+RT <- tweets %>% group_by(date) %>% summarize(funs(sum()))
+View(RT)
+RT <- tweets %>% group_by(date) %>% summarize(funs(sum))
+View(ratings)
+View(RT)
+RT <- tweets %>% group_by(date) %>% summarise_each(funs(sum))
+stats <- summarize(group_by(tweets, date), RT_count=sum(RT), fav_count = sum(fav))
+sum(tweets$RT[1:9])
+View(stats)
+stats <- summarize(group_by(tweets, date), RT_sum=sum(RT), fav_sum = sum(fav), RT_avg=mean(RT), fav_avg=mean(fav))
+#rm(RT)
+#rm(test)
+#rm(tweetcount)
+#rm(dates)
+test <- merge(trump, stats, by="date", type="left", all=TRUE)
+trump <- test
+#rm(test)
+#rm(stats)
+#rm(test643)
+View(trump)
+View(tweets)
+summary(tweets)
+RTs <- ggplot(tweets, aes(x = RT))
+RTs
+RTs <- ggplot(tweets, aes(x = RT)) + geom_density()
+RTs
+g <- ggplot(tweets, aes(x=RT)) + geom_density()
+g + geom_histogram()
+tweets$response <- tweets$RT + tweets$fav
+
+combine$viral <- cut(combine$maxresponse, c(0,232291, 272299, 402289, 974628), labels=c("NA", "90", "95", "99"))
+
+tweets.df2 <- tweets$text
+
+tweets.df2 <- gsub("http.*","",tweets$text)
+tweets.df2 <- gsub(" .*t.co.* ","",tweets.df2)
+tweets.df2 <- gsub("https.* ","",tweets.df2)
+
+clean_tweet = gsub("&amp", " ", tweets.df2)
+clean_tweet = gsub("(RT|via)((?:\\b\\W*@\\w+)+)", " ", clean_tweet)
+clean_tweet = gsub("@\\w+", " ", clean_tweet)
+clean_tweet = gsub("[[:punct:]]", " ", clean_tweet)
+clean_tweet = gsub("[[:digit:]]", " ", clean_tweet)
+clean_tweet = gsub("http\\w* ", "", clean_tweet)
+clean_tweet = gsub("[ \t]{2,}", " ", clean_tweet)
+clean_tweet = gsub("^\\s+|\\s+$", " ", clean_tweet) 
+clean_tweet = gsub("https\\w* ", "", clean_tweet)
+
+head(clean_tweet)
+data("stop_words")
+tidy_trump_tweets<-tidy_trump_tweets %>%
+  anti_join(stop_words)
+
+
+
+
+tweets.df2 <- gsub("http.*","",tweets$text)
+tweets.df2 <- gsub(" .*t.co.* ","",tweets.df2)
+tweets.df2 <- gsub("https.* ","",tweets.df2)
+
+tweets.df2 <- gsub("#.* ","",tweets.df2)
+
+tweets.df2 <- gsub("@.* ","",tweets.df2)
+
+
+
+
+
+process_sentiment <- function (rawtext, mymethod) {
+  chunkedtext <- data_frame(x = rawtext) %>% 
+    group_by(linenumber = ceiling(row_number() / 10)) %>% 
+    summarize(text = str_c(x, collapse = " "))
+  mySentiment <- data.frame(cbind(linenumber = chunkedtext$linenumber, 
+                                  sentiment = get_sentiment(chunkedtext$text, method = mymethod)))
+}
+
+
+
+quantile(tweets$response, c(.8, .85, .9, .95, .97, .99))
+quantile(tweets$response, c(.8, .85, .9, .95, .98, .99))
+sum(tweets$response >= 134822)
+sum(tweets$response >= 146407)
+sum(tweets$response >= 160636)
+sum(tweets$response >= 186903)
+sum(tweets$response >= 205708)
+tweets <- tweets %>% mutate(viral80 = ifelse(response == 134822), TRUE)
+tweets$viral80 <- NA
+tweets$viral90 <- NA
+tweets$viral97 <- NA
+tweets <- mutate(tweets, viral80 = ifelse(response > 134821), 1, 0)
+tweets <- tweets %>% mutate(viral80 = ifelse(response > 134821, '1', '0'))
+tweets <- tweets %>% mutate(viral90 = ifelse(response > 160635, '1', '0'))
+tweets <- tweets %>% mutate(viral97 = ifelse(response > 205708, '1', '0'))
+tweets %>% group_by(date) %>% summarise(viral80)
+library(tidytext)
+library(rtweet)
+library(proustr)
+install.packages("proustr")
+library(proustr)
+install.packages(syuzhet)
+tweets$sentiment <- get_sentiments(tweets$text)
+tweets2 <- gsub("http.*", "", tweets$text)
+tweets$text2 <- gsub("http.*", "", tweets$text)
+tweets$text2 <- gsub("https.*", "", tweets$text)
+tweets$text2 <- gsub("#.*", "", tweets$text)
+tweets$text2 <- gsub("@.*", "", tweets$text)
+sa <- as.vector(tweets$text2)
+sa.df <- get_sentiments(sa)
+library(twitteR)
+#  Install Requried Packages
+installed.packages("SnowballC")
+installed.packages("tm")
+installed.packages("twitteR")
+installed.packages("syuzhet")
+install.packages("syuzhet")
+library("SnowballC")
+library("tm")
+library("twitteR")
+library("syuzhet")
+tweets$text2 <- NA
+sentiment <- get_nrc_sentiment(tweets$text)
+sentiment <- get_nrc_sentiment(as.vector(tweets$text))
+tweets$text2 <- plain_tweets(tweets$text)
+tweets$text2.1 <- plain_tweets(tweets$text, tokenize=TRUE)
+sa <- plain_tweets(tweets$text2, tokenize=TRUE)
+sa
+sa <- plain_tweets(tweets$text2, tokenize=TRUE)
+sa <- table(unlist(stopwords))
+sa <- plain_tweets(tweets$text2)
+install.packages("text2vec")
+library("text2vec")
+sa
+sa <- word_tokenizer(sa)
+sa
+sa <- table(unlist(stopwords()))
+sa <- table(unlist(stopwords)
+)
+sa <- syuzhet::get_nrc_sentiment(sa)
+sa <- tolower(sa)
+tweets$text2 <- plain_tweets(tweets$text)
+clean <- as.data.frame(tweets$text2)
+nrow(clean)
+nrc <- get_sentiments(clean)
+nrc <- get_sentiments("nrc")
+View(clean)
+clean$ID <- seq[1:4449]
+clean$ID <- seq(1:4449)
+clean <- clean %>% unnest_tokens(word, tweets$text2)
+clean <- tweets$text2
+clean.table <- tibble(tweetID = seq_along(clean), text=clean)
+View(clean.table)
+clean.table <- clean.table %>% unnest_tokens(word, text)
+clean.table <- clean.table %>% anti_join(stop_words)
+clean.table %>% count(word, sort = TRUE)
+clean.table <- clean.table %>% anti_join("t.co")
+stop_words
+stop_words <- merge(stop_words, c("t.co", "SMART"))
+stop_words
+stop_words <- mutate(stop_words, -y)
+class(stop_words)
+stop_words <- stop_words[, -3]
+View(stop_words)
+stop_words <- stop_words[, -4]
+View(stop_words)
+stop_words <- stop_words[, -3]
+stop_words <- rbind(stop_words, c("t.co", "SMART"))
+dim(stop_words)
+stop_words <- rbind(stop_words, c("t.co", "onix"))
+stop_words <- rbind(stop_words, c("t.co", "snowball"))
+clean.table <- clean.table %>% anti_join(stop_words)
+clean.table %>% count(word, sort = TRUE)
+clean.table <- clean.table %>% right_join(get_sentiments("nrc")) %>% filter(!is.na(sentiment)) %>% count(sentiment, sort=TRUE)
+clean.table
+sentimentcount <- clean.table
+clean.table <- clean.table %>% anti_join(stop_words)
+tweets2 <- tweets$text
+word.df <- as.vector(tweets2)
+emotion.df <- get_nrc_sentiment(word.df)
+emotion.df2 <- cbind(emotion.df2, emotion.df)
+emotion.df2 <- cbind(tweets2, emotion.df)
+head(emotion.df2)
+View(emotion.df2)
+tweets <- merge(tweets, emotion.df2, by="tweets2")
+tweets <- tweets %>% dplyr::rename(text2=tweets2)
+tweets$tweets2 <- tweets$text2
+tweets <- merge(tweets, emotion.df2, by="tweets2")
+sa.value
+sa.value <- get_sentiment(word.df)
+sa.value
+sa.value <- data.frame(sa.value)
+tweets <- merge(tweets, sa.value)
+
+
+
+
+
+
+
+
+
+
+
+vars <- trump %>% select(date, RT_sum, fav_sum, count, )
+
+
+
+
+
+
+
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  library(grid)
+  
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+  
+  numPlots = length(plots)
+  
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                     ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+  
+  if (numPlots==1) {
+    print(plots[[1]])
+    
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+    
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+      
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+
+
+
+
+
+
+
+#start model checks based on jerry's stuff - mult reg
+
+summary(trump)
+
+trump <- trump %>% select(approve, disapp, dummy, n, RT, fav, response, viral, sent, emote)trump$tweetdummy <- NA
+trump$tweetdummy <- test$trump.Tweets
+trump$viral[is.na(trump$viral)] <- "-"
+levels(trump$viral)
+trump$viral <- factor(trump$viral, levels=c(levels(trump$viral), "NA"))
+levels(trump$viral) <- c("less", "90", "95", "99")
+trump$viral <- factor(trump$viral, levels=c(levels(trump$viral), "NA"))
+trump$viral <- factor(trump$viral, levels=c(levels(trump$viral), 0))
+View(trump)
+levels(trump$viral)
+trump$viral <- droplevels(trump$viral)
+levels(trump$viral) <- c("0", "90", "95", "99")
+levels(trump$sentiment)
+levels(trump$Emotion)
+trump$Emotion[is.na(trump$Emotion)] <- "-"
+levels(trump$Emotion) <- factor(trump$Emotion, levels=c(levels(trump$Emotion), "."))
+levels(trump$sentiment)
+levels(trump$Emotion)
+trump$Emotion[is.na(trump$Emotion)] <- 0
+trump <- trump %>% mutate(viral = coalesce(viral, 0),)
+trump <- trump %>% mutate(viral = coalesce(viral, 0), Emotion = coalesce(Emotion, 0))
+trump <- trump %>% mutate(viral <- as.character(viral), Emotion <- as.character(Emotion)) %>% mutate(viral = coalesce(viral, 0), Emotion = coalesce(Emotion, 0))
+trump <- trump %>% mutate(viral <- as.character(viral), Emotion <- as.character(Emotion))
+trump <- trump(-c[12:13])
+trump <- trump %>% select(-c[12:13])
+summary(trump)
+trump <- trump %>% select(-12)
+trump <- trump %>% select(-12)
+trump$viral <- as.character(trump$viral)
+trump$Emotion <- as.character(trump$Emotion)
+trump$viral[is.na(trump$viral)] <- 0
+trump$Emotion[is.na(trump$Emotion)] <- 0
+trump$Emotion <- as.factor(trump$Emotion)
+trump$viral <- as.factor(trump$viral)
+trump <- trump %>% rename(Approval = app)
+trump <- trump %>% rename(approve = Approval)
+trump <- trump %>% rename(approve = Approval, RT = Retweets, fav = Favorites, n = Tweets, response = maxresponse, disapp = Disapproval, sent = sentiment, emote = Emotion, dummy = tweetdummy)
+trump <- trump %>% rename(RT = Retweets, fav = Favorites, n = Tweets, response = maxresponse, disapp = Disapproval, sent = sentiment, emote = Emotion, dummy = tweetdummy)
+trump <- trump %>% select(approve, disapp, dummy, n, RT, fav, response, viral, sent, emote)
+summary(trump)
+
+
+
+#check plots for all variables against approval
+#categorical variables - 
+boxplot(approve~dummy, data=trump, xlab="Treatment", ylab="Approval Rating", 
+        main="Approval Rating by Tweet Occur Tweeted or Not")
+boxplot(approve~viral, data=trump, xlab="Level of Viralness", ylab="Approval Rating", 
+        main="Approval Rating by Viral Tweet Level")
+boxplot(approve~emote, data=trump, xlab="Primary Emotion", ylab="Approval Rating", 
+        main="Approval Rating by Primary Emotion")
+
+#continuous variables - 
+plot(approve ~ n, data = trump, xlab="Tweet Count", ylab="Approval Rating",
+     main="Approval Rating by Number of Tweets")
+plot(approve ~ RT, data = trump, xlab="RT Total", ylab="Approval Rating",
+     main="Approval Rating by RT Total")
+plot(approve ~ fav, data = trump, xlab="fav Total", ylab="Approval Rating",
+     main="Approval Rating by Favorite Total")
+plot(approve ~ response, data = trump, xlab="Response Total", ylab="Approval Rating",
+     main="Approval Rating by Response for Best Tweet")
+plot(approve ~ sent, data = trump, xlab="Sentiment Score", ylab="Approval Rating",
+     main="Approval Rating by Average Sentiment of Day")
+
+pairs(~approve + n + RT + fav + response + sent, data=trump)
+
+pairs(~disapp + n + RT + fav + response + sent, data=trump)
+
+pairs(trump)
+
+correlation <- cor(trump[,c(1:7, 9)])
+write.table(correlation, file = "correlation.txt", sep = "\t",
+            row.names = TRUE, col.names = TRUE)
+
+summary(trump[trump$dummy==1,])
+summary(trump[trump$dummy==0,])
+
+#based on just these plots, looks like our dummary variable may have a relationship, as well as the variables emote and viral
+#n, RT, and fav are all super correlated - also don't seem to matter
+#response and sentiment are hard to tell, but the var emote is better than sentiment anyway so more likely to tend towards that
+theme_set(theme_bw(base_size=24, base_family="Helvetica Neue") + 
+            theme(plot.subtitle=element_text(size=18, hjust=1),
+                  axis.title=element_text(size=18),
+                  axis.text=element_text(size=12),
+                  legend.text=element_text(size=12),
+                  legend.title=element_text(size=18),
+                  legend.key = element_rect(colour = "transparent"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank()))
+
+trump <- trump %>% rename(Approve = approve, Disapprove = disapp)
+
+#look at approval disapproval trends
+g <- trump %>% gather(key, value, Disapprove, Approve) %>%
+  ggplot(aes(x=date, y=value, colour=key)) + geom_hline(yintercept = 50, colour="dark grey") +
+  geom_point() + geom_smooth(method="loess", level=.99) +
+  labs(x="Date", y="Rating", title="Trump's Approval Rating", subtitle="Feb-1-2017 - Nov-15-2018") +
+  scale_x_date(date_breaks = "3 months", date_labels = "%b-%y")
+
+ggsave("approval.png", plot = g, scale=1, width=10, height = 7, unit = "in", dpi = 300)
+
+approval.raw <- lm(approve ~ dummy + n + RT + fav + response + viral + sent + emote, data = trump)
+disapproval.raw <- lm(disapp ~ dummy + n + RT + fav + response + viral + sent + emote, data = trump)
+
+
+#change to weekly measures
+
+trump2 <- trump %>% group_by(week = week(date)) %>% summarise(value = mean(values))
+trump2 <- trump %>% group_by(week = week(date)) %>% summarise(n = sum(n), Approve = mean(Approve), Disapprove = mean(Disapprove), RT = sum(RT), fav = sum(fav), response = avg(response))
+trump2 <- trump %>% group_by(week = week(date)) %>% summarise(n = sum(n), Approve = mean(Approve), Disapprove = mean(Disapprove), RT = sum(RT), fav = sum(fav), response = mean(response))
+View(trump2)
+trump2 <- trump %>% group_by(week = week(date)) %>% summarise(sent = sum(sent))
+emotion2 <- data.frame(trump$date, trump$emote)
+#all plots do not account for the effects of other variables (which is why we do multiple regression)
+emotion2 <- emotion2 %>% group_by(week = week(date)) %>% slice(which.max(emote))
+emotion2 <- emotion2 %>% group_by(week = week(date)) %>% summarize(emote2 = max(emote), emote2name = Name[which.max(emote)])
+emotion2 <- emotion2 %>% group_by(week = week(date)) %>% summarize(emote2 = max(emote))
+emotion2 <- emotion2 %>% group_by(week = week(date)) %>% count(emote)
+trump <- trump %>% mutate(emote = recode(emote, 1 = "0", 2 = c("anger", "sadness", "trust"), 3 = c("anticipation", "fear")))
+trump <- trump %>% mutate(emote = recode(emote, "1" = "0", "2" = c("anger", "sadness", "trust"), "3" = c("anticipation", "fear")))
+trump <- trump %>% mutate(emote.f <- as.factor(emote))
+levels(trump$emote)
+trump <- trump %>% mutate(emote = factor(emote, labels = c("emote 1", "emote 2", "emote 3", "emote 3", "emote 2", "emote 2")))
+test <- emote %>% group_by(emote, week = week(date)) %>% summarise(n = n()) %>% group_by(week = week(date)) %>% slice(which.max(n))
+test <- group_by(week = week(date)) %>% summarise(em1 = sum(emote 1), em2 = sum(emote2), em3 = sum(emote3))
+test <- group_by(week = week(date)) %>% summarise(em1 = sum("emote 1"), em2 = sum("emote 2"), em3 = sum("emote 3"))
+emote$date <- as.POSIXct(trump$date)
+test <- group_by(week = week(date)) %>% summarise(em1 = sum("emote 1"), em2 = sum("emote 2"), em3 = sum("emote 3"))
+emote$week <- group_by(week = week(date))
+emote$date <- as.Date(emote$date)
+emote$week <- group_by(week = week(date))
+library(lubridate)
+emote$week <- floor_date(emote$date, unit = "week")
+trump2 <- trump %>% group_by(week = week(date)) %>% summarise(value = mean(values))
+trump2 <- trump %>% group_by(week = week(date)) %>% summarise(n = sum(n), Approve = mean(Approve), Disapprove = mean(Disapprove), RT = sum(RT), fav = sum(fav), response = avg(response))
+trump2 <- trump %>% group_by(week = week(date)) %>% summarise(n = sum(n), Approve = mean(Approve), Disapprove = mean(Disapprove), RT = sum(RT), fav = sum(fav), response = mean(response))
+View(trump2)
+trump$week <- floor_date(trump$date, unit = "week")
+trump2 <- trump %>% group_by(week) %>% summarise(n = sum(n), Approve = mean(Approve), Disapprove = mean(Disapprove), RT = sum(RT), fav = sum(fav), response = mean(response))
+View(emote)
+trump2 <- data.frame(trump2, emote$emote)
+emote <- emote %>% group_by(week, cat = emote) %>% summarise(count = emote())
+emote <- emote %>% group_by(week, cat = emote) %>% summarise(emote = count(emote()))
+emote <- data.frame(trump$emote, trump$week)
+test <- emote %>% group_by(week, emote) %>% tally()
+test <- emote %>% group_by(trump.week, trump.emote) %>% tally()
+View(test)
+levels(emote$trump.emote)
+test <- test %>% gather(trump.emote, value, trump.emote) %>% group_by(week, variable, value) %>% summarise(n = n())
+test <- test %>% gather(trump.emote, value, trump.emote) %>% group_by(trump.week, variable, value) %>% summarise(n = n())
+test <- test %>% gather(trump.emote, value, trump.emote) %>% group_by(trump.week, trump.emote, value) %>% summarise(n = n())
+test <- emote %>% group_by(trump.week, trump.emote) %>% tally()
+test <- test %>% gather(trump.emote, value, trump.emote) %>% group_by(trump.week, trump.emote, value) %>% summarise(n = n())
+test <- emote %>% group_by(trump.week, trump.emote) %>% tally()
+test <- test %>% gather(trump.emote, value, trump.emote) %>% group_by(trump.week, trump.emote, value) %>% summarise(n = n()) %>% ungroup() %>% spread(value, n, fill=0)
+trump2 <- data.frame(trump2, test)
+trump2
+trump2 <- trump2 %>% select(-trump.emote)
+week <- trump %>% group_by(week) %>% summarise(sent = mean(sent))
+trump2 <- data.frame(trump2, week)
+trump2 <- trump2 %>% select(-week.1)
+trump2 <- trump2 %>% select(-trump.week)
+summary(trump2)
+summary(trump)
+summary(trump2)
+stats <- summary(trump2)
+class(stats)
+write.table(stats, "trump2.csv")
+write.table(stats, "trump2.csv", sep="\t")
+write.table(stats, "trump2.csv", sep=",")
+trump2 <- trump2 %>% mutate(emote.1 = as.factor(emote.1), emote.2= as.factor(emote.2), emote.3 = as.factor(emote.3))
+stats <- summary(trump2)
+write.table(stats, "trump2.csv", sep=",")
+
+#all the plots
+boxplot(Approve~emote.1, data=trump2, xlab="No Emotion", ylab="Approval Rating", 
+        main="Approval Rating by Emotion Group #1")
+boxplot(Approve~emote.2, data=trump2, xlab="Emotion - Anger, Sadness, or Trust", ylab="Approval Rating", 
+        main="Approval Rating by Emotion Group #2")
+boxplot(Approve~emote.3, data=trump2, xlab="Emotion - Anticipation or Fear", ylab="Approval Rating", 
+        main="Approval Rating by Emotion Group #3")
+
+
+theme(theme_bw(base_size=24, base_family="Helvetica Neue") + 
+            theme(plot.subtitle=element_text(size=18, hjust=1),
+                  axis.title=element_text(size=18),
+                  axis.text=element_text(size=12),
+                  legend.text=element_text(size=12),
+                  legend.title=element_text(size=18),
+                  legend.key = element_rect(colour = "transparent"),
+                  panel.grid.major = element_blank(),
+                  panel.grid.minor = element_blank()))
+g <- trump %>% gather(key, value, Disapprove, Approve) %>%
+  ggplot(aes(x=date, y=value, colour=key)) + geom_hline(yintercept = 50, colour="dark grey") +
+  geom_point() + geom_smooth(method="loess", level=.99) +
+  labs(x="Date", y="Rating", title="Trump's Approval Rating", subtitle="Feb-1-2017 - Nov-15-2018") +
+  scale_x_date(date_breaks = "3 months", date_labels = "%b-%y") + th()
+
+
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  library(grid)
+  
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+  
+  numPlots = length(plots)
+  
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                     ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+  
+  if (numPlots==1) {
+    print(plots[[1]])
+    
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+    
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+      
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+
+
+multiplot(g1, g2, g3, cols=3)
+
+
+#continuous variables - 
+plot(Approve ~ RT, data = trump2, xlab="Total Weekly RTs", ylab="Approval Rating",
+     main="Approval Rating by Weekly RTs")
+plot(Approve ~ n, data = trump2, xlab="Total Tweets", ylab="Approval Rating",
+     main="Approval Rating by Tweets")
+plot(Approve ~ fav, data = trump2, xlab="Total Weekly Favorites", ylab="Approval Rating",
+     main="Approval Rating by Weekly Favorites")
+plot(Approve ~ response, data = trump2, xlab="Average Weekly Attention", ylab="Approval Rating",
+     main="Approval Rating by Average Weekly Attention")
+plot(Approve ~ sent, data = trump2, xlab="Total Weekly Sentiment", ylab="Approval Rating",
+     main="Approval Rating by Weekly Sentiment Score")
+
+correlation <- cor(trump2[,c(2:7, 11, 12)])
+
+
+approval.lm2 <- lm(Approve ~ n + RT + fav + response + emote.1 + emote.2 + emote.3 + sent, data=trump2)
+dispproval.lm2 <- lm(Disapprove ~ n + RT + fav + response + emote.1 + emote.2 + emote.3 + sent, data=trump2)
+trump2$change <- (trump2$Approve - trump2$Disapprove)
+change.lm2 <- lm(change ~ n + RT + fav + response + emote.1 + emote.2 + emote.3 + sent, data=trump2)
+
+changedata <- trump2 %>% select(-Approve, -Disapprove, -week)
+
+
+change.lm <- lm(change ~ n + response + emote.1 + emote.2 + emote.3 + sent, data=changedata)
+
+
+intchange <- lm(change ~ .^2, data=changedata)
+final <- lm(change ~ n + response + emote.1 + emote.2 + emote.3 + sent +
+              response*emote.1 + response*emote.3 + 
+              response*sent, data=changedata)
+
+#models - analysis
+approval.raw
+approval.lm2
+disapproval.raw
+disapproval.lm2
+change.lm
+change.lm2
+change.lm2.int
+final
+
+confint(change.lm)
+confint(final)
+
+
+
+plot(y=final$residual, x = changedata$n, xlab = "Count", ylab = "Residual")
+abline(0,0)
+
+plot(y=final$residual, x = changedata$response, xlab = "Response", ylab = "Residual")
+abline(0,0)
+
+plot(y=final$residual, x = changedata$sent, xlab = "Sentiment", ylab = "Residual")
+abline(0,0)
+
+
+boxplot(final$residual~ changedata$emote.1, xlab = "emote 1", ylab = "resid")
+boxplot(final$residual~ changedata$emote.2, xlab = "emote 2", ylab = "resid")
+boxplot(final$residual~ changedata$emote.3, xlab = "emote 3", ylab = "resid")
+
+plot(final$resid, x=diamonds$CaratsCent, ylab = "Residuals")
+
+
+library(MASS)
+leverage = hatvalues(approval.raw)
+cooks = cooks.distance(approval.raw)
+
+d2 <- cbind(trump, leverage, cooks)
+
+hist(leverage, main="lev for approval reg")
+
+
+lev2 <- hatvalues(final)
+cooks2 <- cooks.distance(final)
+df <- cbind(changedata, lev2, cooks2)
+hist(lev2, main="lev for final")
+hist(cooks2, main="cooks for final")
+
+df[df$lev2 > .09,]
+d2[d2$cooks > .015,]
+#interesting because these ppoints are all centering aorund 3 time points
+
+
+final.stdres = rstandard(final)
+plot(y = final.stdres, x = changedata$emote.2, ylab = "Standardized residuals", xlab = "Emote 2", main = "Standardized residuals versus predictor")

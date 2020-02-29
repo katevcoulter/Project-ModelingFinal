@@ -1,0 +1,11 @@
+"","","","","","","",""
+"     Date","Min.   :2017-02-01  ","1st Qu.:2017-07-14  ","Median :2017-12-24  ","Mean   :2017-12-24  ","3rd Qu.:2018-06-05  ","Max.   :2018-11-15  ",NA
+"   Retweets","Min.   :  7089  ","1st Qu.: 84293  ","Median :131677  ","Mean   :147011  ","3rd Qu.:203822  ","Max.   :520434  ","NA's   :45  "
+"  Favorites","Min.   :  33563  ","1st Qu.: 380460  ","Median : 579038  ","Mean   : 618442  ","3rd Qu.: 846484  ","Max.   :1998621  ","NA's   :45  "
+"    Tweets","Min.   : 0.000  ","1st Qu.: 4.000  ","Median : 6.000  ","Mean   : 6.813  ","3rd Qu.:10.000  ","Max.   :24.000  ",NA
+"Online.Response","Min.   :     0  ","1st Qu.:119726  ","Median :149554  ","Mean   :155035  ","3rd Qu.:187042  ","Max.   :974628  ",NA
+"   Approval","Min.   :36.40  ","1st Qu.:38.67  ","Median :40.46  ","Mean   :40.32  ","3rd Qu.:41.91  ","Max.   :44.81  ",NA
+" Disapproval","Min.   :44.69  ","1st Qu.:52.56  ","Median :53.66  ","Mean   :53.84  ","3rd Qu.:55.52  ","Max.   :57.50  ",NA
+"Virality","NA  :542  ","90  : 33  ","95  : 26  ","99  :  7  ","NA's: 45  ",NA,NA
+"Sentiment.Score","Min.   :-4.55000  ","1st Qu.: 0.02396  ","Median : 0.53568  ","Mean   : 0.53445  ","3rd Qu.: 1.01104  ","Max.   : 6.40000  ","NA's   :45  "
+"        Emotion","trust       :365  ","anticipation: 91  ","anger       : 64  ","fear        : 41  ","joy         : 20  ","(Other)     : 27  ","NA's        : 45  "
